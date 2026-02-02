@@ -1,32 +1,9 @@
 import { Calendar, MapPin } from "lucide-react";
+import { events } from "@/data/events";
 
-interface Event {
-  id: number;
-  title: string;
-  date: string;
-  venue: string;
-}
-
-const events: Event[] = [
-  {
-    id: 1,
-    title: "Annual Tech Symposium",
-    date: "March 15, 2026",
-    venue: "Main Auditorium, Block A",
-  },
-  {
-    id: 2,
-    title: "Cultural Fest: Spring Beats",
-    date: "March 22, 2026",
-    venue: "Open Air Theatre",
-  },
-  {
-    id: 3,
-    title: "Career Fair 2026",
-    date: "April 5, 2026",
-    venue: "Convention Center, Hall 1",
-  },
-];
+const sortedEvents = [...events].sort(
+  (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+);
 
 const EventsPage = () => {
   return (
@@ -37,7 +14,7 @@ const EventsPage = () => {
         </h1>
         
         <div className="space-y-4">
-          {events.map((event) => (
+          {sortedEvents.map((event) => (
             <div
               key={event.id}
               className="bg-card border border-border rounded-lg p-5 shadow-sm hover:shadow-md transition-shadow"
@@ -49,7 +26,13 @@ const EventsPage = () => {
               <div className="space-y-2">
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <Calendar className="h-4 w-4" />
-                  <span className="text-sm">{event.date}</span>
+                  <span className="text-sm">
+                    {new Date(event.date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </span>
                 </div>
                 
                 <div className="flex items-center gap-2 text-muted-foreground">
