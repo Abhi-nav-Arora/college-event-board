@@ -1,4 +1,5 @@
 import { Calendar, MapPin } from "lucide-react";
+import { Link } from "react-router-dom";
 import { events } from "@/data/events";
 
 const sortedEvents = [...events].sort(
@@ -15,9 +16,10 @@ const EventsPage = () => {
         
         <div className="space-y-4">
           {sortedEvents.map((event) => (
-            <div
+            <Link
+              to={`/event/${event.id}`}
               key={event.id}
-              className="bg-card border border-border rounded-lg p-5 shadow-sm hover:shadow-md transition-shadow"
+              className="block bg-card border border-border rounded-lg p-5 shadow-sm hover:shadow-md transition-shadow"
             >
               <h2 className="text-lg font-semibold text-card-foreground mb-3">
                 {event.title}
@@ -40,7 +42,7 @@ const EventsPage = () => {
                   <span className="text-sm">{event.venue}</span>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
